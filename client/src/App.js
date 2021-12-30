@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import React from 'react';
 import Header from './js/header/header';
 import Profile from './js/profile/profile';
+import Day from './js/day/newDay';
 
 class App extends React.Component {
   constructor() {
@@ -26,6 +27,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Route path="/" render={props => <Header {...props} user={this.state.user} />} />
         <Route exact path="/profile" render={props => <Profile {...props} user={this.state.user} />} />
+        <Route exact path="/day" render={props => <Day {...props} user={this.state.user} />} />
       </BrowserRouter>
     )
   }

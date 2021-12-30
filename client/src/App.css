@@ -48,11 +48,14 @@
 .user-infos {
   margin-top: 20px;
   width: 650px;
-  height: 650px;
+  height: fit-content;
 }
 
 .menu-sign {
   float: right;
+  border: 0px;
+  font-size: 40px;
+  font-weight: bolder;
 }
 
 .user-name {
@@ -61,13 +64,14 @@
   margin-bottom: 20px;
 }
 
-.followers-info {
+.followers-info-btn {
   margin-left: 30px;
   width: 150px;
   height: 35px;
   font-size: 15px;
   border: 0px;
   background-color: black;
+  border: solid white 1px;
   color: white;
 }
 
@@ -77,6 +81,33 @@
   font-weight: normal;
 }
 
-.profile-footer {
-  
+.profile-footer-btns {
+  margin-top: 40px;
+}
+
+.toogle-profile-footer-btn {
+  margin-left: 25%;
+  width: 150px;
+  height: 35px;
+  font-size: 15px;
+  border: 0px;
+  background-color: black;
+  border: solid white 1px;
+  color: white;
+}
+
+.menu-box {
+  width: 150px;
+  position: relative;
+  float: right;
+  top: 20px;
+}
+
+.menu-btn {
+  border: solid white 1px;
+  font-size: 20px;
+  background-color: black;
+  color: white;
+  width: 150px;
+  height: 35px;
 }
