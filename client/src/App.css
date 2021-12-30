@@ -1,21 +1,82 @@
 
 * {
   background-color: #2eb82e;
+  margin: 0px
 }
 
 #header {
   background-color: black;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: fixed;
+  width: 98%;
 }
 
 #logo {
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
+  margin-top: 0px;
   border-radius: 50%;
 }
 
 #nav-bar {
+  margin-top: 0px;
   background-color: black;
+  margin-top: 10px;
+}
+
+.main {
+  padding: 20px;
+  padding-top: 80px;
+}
+
+.profileImg {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-top: 10px;
+  margin-right: 50px;
+}
+
+.profile-header {
+  display: flex;
+}
+
+.user-infos {
   margin-top: 20px;
+  width: 650px;
+  height: 650px;
+}
+
+.menu-sign {
+  float: right;
+}
+
+.user-name {
+  font-size: 60px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+.followers-info {
+  margin-left: 30px;
+  width: 150px;
+  height: 35px;
+  font-size: 15px;
+  border: 0px;
+  background-color: black;
+  color: white;
+}
+
+.bio-box {
+  width: 550px;
+  margin-top: 20px;
+  font-weight: normal;
+}
+
+.profile-footer {
+  
 }

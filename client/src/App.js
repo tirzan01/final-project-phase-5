@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import React from 'react';
 import Header from './js/header/header';
+import Profile from './js/profile/profile';
 
 class App extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ class App extends React.Component {
         bio: 'this is my bio',
         followers: '100',
         followed: '50',
-        profilePic: './images/avocado.jpg'
+        profileImg: './images/avocado.jpg'
       }
     }
   }
@@ -23,14 +24,8 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App">
-          <Switch>
-            <Route path="/" render={props => <Header {...props} user={this.state.user} />} />
-            <Route exact path="/testing">
-              <h1>Test Route('/testing')</h1>
-            </Route>
-          </Switch>
-        </div>
+        <Route path="/" render={props => <Header {...props} user={this.state.user} />} />
+        <Route exact path="/profile" render={props => <Profile {...props} user={this.state.user} />} />
       </BrowserRouter>
     )
   }
