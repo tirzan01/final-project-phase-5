@@ -1,29 +1,39 @@
-import { useState, useEffect } from "react";
+import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React from 'react';
+import Header from './js/header/header';
 
-function App() {
-  const [count, setCount] = useState(0);
+class App extends React.Component {
+  constructor() {
+    super()
 
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
+    this.state = {
+      user: {
+        userName: 'user name',
+        firstName: 'first name',
+        lastName: 'last name',
+        bio: 'this is my bio',
+        followers: '100',
+        followed: '50',
+        profilePic: './images/avocado.jpg'
+      }
+    }
+  }
 
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Switch>
-          <Route path="/testing">
-            <h1>Test Route</h1>
-          </Route>
-          <Route path="/">
-            <h1>Page Count: {count}</h1>
-          </Route>
-        </Switch>
-      </div>
-    </BrowserRouter>
-  );
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <Switch>
+            <Route path="/" render={props => <Header {...props} user={this.state.user} />} />
+            <Route exact path="/testing">
+              <h1>Test Route('/testing')</h1>
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    )
+  }
 }
 
 export default App;
