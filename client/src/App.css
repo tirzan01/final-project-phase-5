@@ -111,3 +111,68 @@
   width: 150px;
   height: 35px;
 }
+
+.new-day {
+  display: flex;
+  justify-content: space-between;
+}
+
+#display-day {
+  width: 500px;
+  height: min-content;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.time-food-container {
+  display: flex;
+  border: 2px solid black;
+  background-color: white;
+}
+
+.time-display-day {
+  width: 80px;
+  text-align: center;
+  padding: 10px;
+  border-right: 4px solid black;
+  background-color: white;
+}
+
+.food-qty-container {
+  width: 400px;
+  margin-left: 20px;
+  background-color: white;
+}
+
+.single-food-qty-display {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: white;
+}
+
+.food-name-display-day {
+  width: 270px;
+  background-color: white;
+}
+
+.food-qty-display-day {
+  width: 100px;
+  background-color: white;
+}
+
+.remove-food-display-day {
+  margin-right: 5px;
+  float: right;
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+}
+
+#display-day-no-food {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid black;
+
+}
