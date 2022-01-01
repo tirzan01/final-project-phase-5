@@ -11,22 +11,22 @@ class Day extends React.Component {
         {
           time: '08:00',
           foods: [
-            { food: 'banana', qty: '100' },
-            { food: 'orange', qty: '50' }
+            { foodName: 'banana', foodId: 1, qty: '100' },
+            { foodName: 'orange', foodId: 1, qty: '50' }
           ]
         },
         {
           time:'12:00', 
           foods: [
-              { food: 'banana', qty: '100' },
-              { food: 'orange', qty: '50' }
+              { foodName: 'banana', foodId: 1, qty: '100' },
+              { foodName: 'orange', foodId: 1, qty: '50' }
             ]
         },
         {
           time:'18:00',
           foods: [
-              { food: 'banana', qty: '100' },
-              { food: 'orange', qty: '50' }
+              { foodName: 'banana', foodId: 1, qty: '100' },
+              { foodName: 'orange', foodId: 1, qty: '50' }
             ]
         },
       ]
@@ -35,7 +35,7 @@ class Day extends React.Component {
 
   removeFood = (food, time) => {
     let singlePart = this.state.day.find(s => s.time === time)
-    singlePart.foods = singlePart.foods.filter(f => f.food !== food)
+    singlePart.foods = singlePart.foods.filter(f => f.foodName !== food)
     let updatedDay = this.state.day.filter(s => s.time !== time)
     if(singlePart.foods[0]) {
       updatedDay.push(singlePart)

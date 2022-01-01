@@ -12,7 +12,7 @@
 # INSERT INTO foods(id, name, calories, fibre, sugar, proteins, fats, carbohydrate) VALUES (4, 'Oranges',     47,   2,    12,   8.6,   0.1, 10.6)
 # INSERT INTO foods(id, name, calories, fibre, sugar, proteins, fats, carbohydrate) VALUES (5, 'Lobster',     89,   0,    0,    19,    0.9, 0)
 # INSERT INTO foods(id, name, calories, fibre, sugar, proteins, fats, carbohydrate) VALUES (6, 'Greek yogurt',84.2, 0.9,  7.6,  4.4,   2.7, 11.1)
-# Food.create(id:1, name:'Banana', calories:89, fibre:2.6, sugar:12.2, proteins:1.1, fats:0.3, carbohydrates:22.8)
+Food.create(id:1, name:'Banana', calories:89, fibre:2.6, sugar:12.2, proteins:1.1, fats:0.3, carbohydrates:22.8)
 Food.create(id:2, name:'Apple', calories:52, fibre:10.4, sugar:10.4, proteins:0.3, fats:0.2, carbohydrates:13.8)
 Food.create(id:3, name:'Strawberry', calories:32, fibre:2, sugar:4.9, proteins:0.7, fats:0.3, carbohydrates:7.7)
 Food.create(id:4, name:'Oranges', calories:47, fibre:2, sugar:12, proteins:8.6, fats:0.1, carbohydrates:10.6)

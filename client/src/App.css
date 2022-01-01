@@ -136,6 +136,7 @@
   padding: 10px;
   border-right: 4px solid black;
   background-color: white;
+  font-weight: bold;
 }
 
 .food-qty-container {
@@ -154,11 +155,13 @@
 .food-name-display-day {
   width: 270px;
   background-color: white;
+  font-weight: bold;
 }
 
 .food-qty-display-day {
-  width: 100px;
+  width: 120px;
   background-color: white;
+  font-weight: bold;
 }
 
 .remove-food-display-day {
@@ -175,4 +178,106 @@
   padding: 20px;
   border: 2px solid black;
 
+}
+
+#add-new-food {
+  width: 350px;
+}
+
+.label-add-new-food {
+  font-size: 20px;
+  
+}
+
+.input-add-new-food {
+  float: right;
+  width: 200px;
+  height: 25px;
+  background-color: white;
+}
+
+.input-add-new-food.select-time {
+  width: 208px;
+}
+
+.select-name {
+  font-size: 25px;
+  font-weight: bold;
+  height: 30px;
+}
+
+.add-new-food-fields.select-name {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.add-new-food-fields {
+  height: 40px;
+}
+
+.new-day-btn {
+  width: 50%;
+  height: 35px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.new-day-btn.create {
+  background-color: white;
+}
+
+.new-day-btn.discard {
+background-color: black;
+color: white;
+}
+
+#add-new-food-btn {
+  width: 100%;
+  height: 35px;
+  margin-bottom: 40px;
+  background-color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#new-day-nutriens-details {
+  text-align: center;
+  width: 500px;
+  border: 3px solid black;
+  background-color: white;
+  margin-top: 30px;
+  height: 150px;
+}
+
+.new-day-nutrient-single-detail {
+  background-color: white;
+  font-size: 25px;
+  font-weight: bold;
+  height: 29px;
+  margin: 10px;
+}
+
+.new-day-nutrient-single-detail.right {
+  float: right;
+}
+
+.new-day-nutrient-single-detail.left {
+  float: left;
+}
+
+#auto-complete-food-box {
+  background-color: white;
+  width: 204px;
+  z-index: 1;
+  left: 161px;
+  margin-top: 7px;
+  position: absolute;
+  border: 2px solid black;
+  border-bottom: 0px;
+}
+
+.auto-complete-single-food {
+  background-color: white;
+  height: 30px;
+  border-bottom: 2px solid black;
 }

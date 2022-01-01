@@ -2,10 +2,17 @@ import React from "react"
 
 
 const SelectName = ({ handleChange, name }) => (
-  <React.Fragment>
-    <label htmlFor="name">Name:</label>
-    <input type="text" name='name' placeholder='name' value={name} onChange={handleChange} />
-  </React.Fragment>
+  <div className='add-new-food-fields select-name'>
+    <label htmlFor="name" className='label-add-new-food select-name'>Name:</label>
+    <input
+      type="text"
+      name='name'
+      className='input-add-new-food select-name'
+      placeholder='name'
+      value={name}
+      onChange={handleChange}
+    />
+  </div>
 )
 
 export default SelectName

@@ -11,19 +11,29 @@ class AddNewFood extends React.Component {
     this.state = {
       name: '',
       time: '',
-      food: '',
+      foodName: '',
+      foodId: null,
       qty: ''
     }
   }
   handleSubmit = e => {
     e.preventDefault()
-    const newFood = {food: this.state.food, qty: this.state.qty}
+    const newFood = {
+      foodName: this.state.foodName,
+      foodId: this.state.foodId,
+      qty: this.state.qty
+    }
     this.props.addNewFood(newFood, this.state.time)
     this.setState({
       time: '',
-      food: '',
+      foodName: '',
+      foodId: null,
       qty: ''
     })
+  }
+
+  handleClick = (foodName, foodId) => {
+    this.setState({foodName, foodId})
   }
 
   handleChange = e => {
@@ -34,15 +44,17 @@ class AddNewFood extends React.Component {
     return <div id='add-new-food'>
       <h1>Add new food</h1>
       <div className='new-food-input'>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} autoComplete="off">
           <SelectName handleChange={this.handleChange} name={this.state.name} /><br/>
           <SelectTime handleChange={this.handleChange} time={this.state.time} /><br/>
-          <SelectFood handleChange={this.handleChange} food={this.state.food} /><br/>
+          <SelectFood handleChange={this.handleChange} food={this.state.foodName} handleClick={this.handleClick} /><br/>
           <SelectQty handleChange={this.handleChange} qty={this.state.qty} /><br/>
-          <input type="submit" value='Add new food' />
+          <input type="submit" value='Add new food' id='add-new-food-btn' />
         </form>
-        <button type='submit'>Create New Day</button>
-        <button onClick={this.props.discardDay}>Discard Day</button>
+        <button className='new-day-btn create'>Create New Day</button>
+        <button className='new-day-btn discard' onClick={this.props.discardDay}>
+          Discard Day
+          </button>
       </div>
     </div>
   }
