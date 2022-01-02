@@ -12,21 +12,21 @@ class Day extends React.Component {
           time: '08:00',
           foods: [
             { foodName: 'banana', foodId: 1, qty: '100' },
-            { foodName: 'orange', foodId: 1, qty: '50' }
+            { foodName: 'oranges', foodId: 2, qty: '50' }
           ]
         },
         {
           time:'12:00', 
           foods: [
               { foodName: 'banana', foodId: 1, qty: '100' },
-              { foodName: 'orange', foodId: 1, qty: '50' }
+              { foodName: 'oranges', foodId: 2, qty: '50' }
             ]
         },
         {
           time:'18:00',
           foods: [
               { foodName: 'banana', foodId: 1, qty: '100' },
-              { foodName: 'orange', foodId: 1, qty: '50' }
+              { foodName: 'oranges', foodId: 2, qty: '50' }
             ]
         },
       ]

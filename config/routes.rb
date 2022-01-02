@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   get '/hello', to: 'application#hello_world'
 
-  resources :foods, only: :index
-
+  resources :foods, only: [:index, :show]
 
   get '*path',
       to: 'fallback#index',
