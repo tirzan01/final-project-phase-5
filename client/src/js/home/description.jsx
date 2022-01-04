@@ -1,9 +1,9 @@
 import React from "react"
 
 const Description = () => (
-  <div className="description">
-    <h1>Description</h1>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis accusamus sit beatae! Enim impedit exercitationem fuga quo tempore. Quibusdam praesentium tenetur consectetur sequi aliquam beatae voluptatum ut deleniti consequuntur nostrum adipisci harum maxime iste illum aspernatur repellendus numquam, accusantium temporibus et natus! Sed corporis consequatur animi ducimus deleniti fugit adipisci placeat, voluptatem inventore dolorum? Repellendus error ipsam porro rerum in quod quisquam temporibus consequuntur! Deserunt eaque perspiciatis repudiandae ex quam quia necessitatibus vel velit placeat?
+  <div id="description">
+    <h1 id='description-header'>Description</h1>
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam incidunt magnam velit reiciendis illo ullam dignissimos exercitationem facere, aut fugit iure sint tempora libero officia et odit quis accusamus, odio, quisquam animi provident necessitatibus. Praesentium quia maiores, dolores laudantium sint hic nisi distinctio doloremque corporis id reprehenderit voluptas accusamus eaque!
   </div>
 )
 

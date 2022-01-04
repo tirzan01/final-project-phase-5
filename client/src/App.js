@@ -5,6 +5,7 @@ import Header from './js/header/header';
 import Profile from './js/profile/profile';
 import Day from './js/day/newDay';
 import Home from './js/home/home';
+import SignUp from './js/singup/signUp';
 
 class App extends React.Component {
   constructor() {
@@ -12,15 +13,15 @@ class App extends React.Component {
 
     this.state = {
       user: null
-      // user: {
-      //   userName: 'user name',
-      //   firstName: 'first name',
-      //   lastName: 'last name',
-      //   bio: 'this is my bio',
-      //   followers: '100',
-      //   followed: '50',
-      //   profileImg: './images/avocado.jpg'
-      // }
+    //   user: {
+    //     userName: 'user name',
+    //     firstName: 'first name',
+    //     lastName: 'last name',
+    //     bio: 'this is my bio',
+    //     followers: '100',
+    //     followed: '50',
+    //     profileImg: './images/avocado.jpg'
+    //   }
     }
   }
 
@@ -31,6 +32,7 @@ class App extends React.Component {
         <Route exact path="/" render={props => <Home {...props} user={this.state.user} />} />
         <Route exact path="/profile" render={props => <Profile {...props} user={this.state.user} />} />
         <Route exact path="/day" render={props => <Day {...props} user={this.state.user} />} />
+        <Route exact path="/signup" render={props => <SignUp {...props} user={this.state.user} />} />
       </BrowserRouter>
     )
   }

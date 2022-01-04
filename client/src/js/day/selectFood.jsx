@@ -41,6 +41,7 @@ const SelectFood = ({ handleChange, food, handleClick }) => {
     onChange={handleFoodChange}
     onFocus={() => setDisplayBox(true)}
     onBlur={handleBlur}
+    required
   />
   {
     displayBox

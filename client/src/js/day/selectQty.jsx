@@ -3,7 +3,7 @@ import React from "react"
 
 const SelectQty = ({ handleChange, qty }) => (
   <div className='add-new-food-fields'>
-    <label htmlFor="qty" className='label-add-new-food'>Quantity:</label>
+    <label htmlFor="qty" className='label-add-new-food'>Quantity (g):</label>
     <input
       type="text"
       className='input-add-new-food'
@@ -11,6 +11,7 @@ const SelectQty = ({ handleChange, qty }) => (
       placeholder='quantity'
       value={qty}
       onChange={handleChange}
+      required
     />
   </div>
 )

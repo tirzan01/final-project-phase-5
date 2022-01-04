@@ -4,7 +4,13 @@ import React from "react"
 const SelectTime = ({ handleChange,time }) => (
     <div className='add-new-food-fields'>
       <label htmlFor="time" className='label-add-new-food'>Time:</label>
-      <select name="time" value={time} className='input-add-new-food select-time' onChange={handleChange}>
+      <select
+        name="time"
+        value={time}
+        className='input-add-new-food select-time'
+        onChange={handleChange}
+        required
+      >
         <option value={null}>---Select time---</option>
         {options.map((time, i) => <option value={time} key={i}>{time}</option>)}
       </select>

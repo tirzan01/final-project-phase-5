@@ -3,14 +3,14 @@ import DailyPlan from "./dailyPlan"
 import Description from "./description"
 import Login from "./login"
 
-const Home = ({ user }) => {
-  return <div className="home main">
+const Home = (props) => {
+  return <div id="home" className='main'>
     {
-      user
+      props.user
       ?
-      <Login />
-      :
       <DailyPlan />
+      :
+      <Login {...props}/>
     }
     <Description />
   </div>
