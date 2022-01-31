@@ -1,17 +1,21 @@
 import React from "react"
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 
 
 const SelectQty = ({ handleChange, qty }) => (
   <div className='add-new-food-fields'>
-    <label htmlFor="qty" className='label-add-new-food'>Quantity (g):</label>
-    <input
-      type="text"
-      className='input-add-new-food'
-      name='qty'
-      placeholder='quantity'
+    <TextField
+      label="Quantity"
+      id="filled-start-adornment"
+      sx={{ m: 1, width: '25ch' }}
+      InputProps={{
+        startAdornment: <InputAdornment position="start">g</InputAdornment>,
+      }}
+      variant="filled"
       value={qty}
-      onChange={handleChange}
-      required
+      onChange={e => handleChange(e.target.value)}
+      style={{ backgroundColor: 'white', borderRadius: 5 }}
     />
   </div>
 )

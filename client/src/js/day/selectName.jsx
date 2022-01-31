@@ -1,18 +1,18 @@
 import React from "react"
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 
 
-const SelectName = ({ handleChange, name }) => (
-  <div className='add-new-food-fields select-name'>
-    <label htmlFor="name" className='label-add-new-food select-name'>Name:</label>
-    <input
-      type="text"
-      name='name'
-      className='input-add-new-food select-name'
-      placeholder='name'
-      value={name}
-      onChange={handleChange}
-    />
-  </div>
+const SelectName = ({ handleChange, name }) => ( 
+  <TextField
+    label="Name"
+    id="filled-start-adornment"
+    sx={{ m: 1, width: '25ch' }}
+    variant="filled"
+    value={name}
+    onChange={handleChange}
+    style={{ backgroundColor: 'white', borderRadius: 5 }}
+  />
 )
 
 export default SelectName

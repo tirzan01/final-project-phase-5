@@ -1,55 +1,37 @@
 import React from "react"
-import AutoCompleteFoodSelection from "./autoCompleteFoodSelection"
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
-
-const SelectFood = ({ handleChange, food, handleClick }) => {
+const SelectFood = ({ handleChange, food, handleSelect, value }) => {
   const [displayFood, setDisplayFood] = React.useState([])
 
-  const [displayBox, setDisplayBox] = React.useState(false)
 
-  const handleFoodChange = e => {
-    handleChange(e)
-    fetch('/foods')
+  const handleFoodChange = (event, newValue) => {
+    handleChange(newValue)
+    fetch(`/api/v1/foods?q=${newValue}`)
       .then(resp => resp.json())
       .then(foods => {
-        let displayFood = foods.filter(f => f.name.toLowerCase().startsWith(e.target.value.toLowerCase())).slice(0, 3)
-        setDisplayFood(displayFood)
+        // let displayFood = foods.filter(f => f.name.toLowerCase().startsWith(e.target.value.toLowerCase())).slice(0, 3)
+        setDisplayFood(foods)
       })
   }
 
-  const handleBlur = () => {
-    const timeOut = setTimeout(() => {
-      setDisplayBox(false)
-      clearTimeout(timeOut)
-    }, 500)
+  const handleFoodSelection = (value, newValue) => {
+    handleSelect(newValue)
   }
 
-  const handleClickAndDeleteBox = (name, id) => {
-    handleClick(name, id)
-    setDisplayBox(false)
-    setDisplayFood([{name, id}])
-  }
-
-  return <div className='add-new-food-fields'>
-    <label htmlFor="food" className='label-add-new-food'>Food:</label>
-    <input
-    type="text"
-    name='foodName'
-    className='input-add-new-food'
-    placeholder='food'
-    value={food}
-    onChange={handleFoodChange}
-    onFocus={() => setDisplayBox(true)}
-    onBlur={handleBlur}
-    required
-  />
-  {
-    displayBox
-    ?
-    <AutoCompleteFoodSelection displayFood={displayFood} handleClick={handleClickAndDeleteBox} />
-    :
-    null
-  }
+  return <div>
+    <Autocomplete
+      value={value}
+      onChange={handleFoodSelection}
+      inputValue={food}
+      onInputChange={handleFoodChange}
+      id="controllable-states-demo"
+      options={displayFood}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Food name" />}
+      style={{ backgroundColor: 'white', borderRadius: 5, width: 260 }}
+    />
   </div>
 }
 

@@ -1,36 +1,43 @@
 import React from "react"
-import UserInfos from "./userInfos"
-import ProfileFooter from "./profileFooter"
-import MenuBox from "./menuBox"
+import CircularProgress from '@mui/material/CircularProgress';
+import OwnProfile from "./ownProfile"
+import VisitorProfile from "./visitorProfile"
 
-class Profile extends React.Component {
-  constructor() {
-    super()
+const style = {
+  backgroundImage: 'url(../images/background2.jpg)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundAttachment: 'fixed'
+}
 
-    this.state = {
-      menuBoxActive: false
+const Profile = (props) => {
+  const [user, setUser] = React.useState(null)
+
+  React.useEffect(() => {
+    fetch(`http://localhost:4000/api/v1/users/${props.match.params.id}`)
+      .then(resp => resp.json())
+      .then(user => setUser(user))
+  }, [])
+
+  const userBgImg = () => {
+    // return user ? `url(../images/background${user.user.bg_img}.jpg)` : null
+  }
+
+  return <div className="main" style={{ ...style }}>
+    {
+      user
+      ?
+      (
+        user.curr_user_profile
+        ?
+        <OwnProfile {...props} user={user.user} followInfo={user.follow_info} logout={props.logout} daysCount={user.days_count} />
+        :
+        <VisitorProfile {...props} user={user.user} followed={user.followed} followInfo={user.follow_info} daysCount={user.days_count} />
+      )
+      :
+      <CircularProgress />
     }
-  }
-
-  toogleMenuBox = () => {
-    this.setState(({ menuBoxActive }) => {
-      return { menuBoxActive: !menuBoxActive }
-    })
-  }
-
-  render() {
-    return <div className='main'>
-      <button className='menu-sign' onClick={this.toogleMenuBox} >&equiv;</button>
-      {this.state.menuBoxActive ? <MenuBox {...this.props} /> : null}
-      <div className='profile-header'>
-        <img src={this.props.user.profileImg} alt='profile picture' className='profileImg' />
-        <UserInfos user={this.props.user} />
-      </div>
-      <div className='profile-footer'>
-        <ProfileFooter user={this.props.user} />
-      </div>
-    </div>
-  }
+  </div>
 }
 
 export default Profile

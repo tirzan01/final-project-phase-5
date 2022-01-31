@@ -3,11 +3,37 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get '/hello', to: 'application#hello_world'
+  get '/hello' => 'application#hello_world'
 
-  resources :users, only: [:index, :show, :create]
+  namespace :api do
+    namespace :v1 do
+      resources :users do
+        post '/follow' => 'users#follow'
+        post '/unfollow' => 'users#unfollow'
+        resources :days
+        resources :selected_days, only: [:index]
+      end
+      resources :foods
+      resources :days do
+        resources :comments
+      end
+      resources :day_foods
+      resources :likes
+      resources :selected_days do
+      end
+      get '/today' => 'selected_days#today'
+      get '/tomorrow' => 'selected_days#tomorrow'
+      post '/login' => 'sessions#create'
+      post '/logout' => 'sessions#destroy'
+      delete '/dislike' => 'likes#dislike'
+      get '/auth/facebook/callback' => 'sessions#create'
+    end
+  end
 
-  resources :foods, only: [:index, :show]
+  get 'auth/:provider' => 'sessions#omniauth'
+  get 'auth/failure' => redirect('/')
+  get '/google-login' => redirect('/auth/google_oauth2')
+  get 'auth/:provider/callback' => 'sessions#create'
 
   get '*path',
       to: 'fallback#index',

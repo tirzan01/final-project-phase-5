@@ -2,80 +2,113 @@ import React from "react"
 import AddNewFood from "./addNewFood"
 import DisplayDay from "./displayDay"
 
-class Day extends React.Component {
-  constructor() {
-    super()
+const order = {
+  'Breakfast': 1,
+  'Morning snack': 2,
+  'Lunch': 3,
+  'Afternoon snack': 4,
+  'dinner': 5,
+  'Night snack': 6
+}
 
-    this.state = {
-      day: [
-        {
-          time: '08:00',
-          foods: [
-            { foodName: 'banana', foodId: 1, qty: '100' },
-            { foodName: 'oranges', foodId: 2, qty: '50' }
-          ]
-        },
-        {
-          time:'12:00', 
-          foods: [
-              { foodName: 'banana', foodId: 1, qty: '100' },
-              { foodName: 'oranges', foodId: 2, qty: '50' }
-            ]
-        },
-        {
-          time:'18:00',
-          foods: [
-              { foodName: 'banana', foodId: 1, qty: '100' },
-              { foodName: 'oranges', foodId: 2, qty: '50' }
-            ]
-        },
-      ]
-    }
-  }
+const style = {
+  backgroundImage: 'url(./images/new-day.jpg)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
+  backgroundAttachment: 'fixed'
+}
 
-  removeFood = (food, time) => {
-    let singlePart = this.state.day.find(s => s.time === time)
+const Day = (props) => {
+  const [meals, setMeals] = React.useState([])
+  const [name, setName] = React.useState('')
+
+  const removeFood = (food, time) => {
+    let singlePart = meals.find(s => s.time === time)
     singlePart.foods = singlePart.foods.filter(f => f.foodName !== food)
-    let updatedDay = this.state.day.filter(s => s.time !== time)
+    let updatedDay = meals.filter(s => s.time !== time)
     if(singlePart.foods[0]) {
       updatedDay.push(singlePart)
     }
-    const day = updatedDay.sort((a, b) => a.time.localeCompare(b.time))
-    this.setState({ day })
+    setMeals(updatedDay.sort((a, b) => a.time.localeCompare(b.time)))
   }
 
-  addNewFood = (food, time) => {
-    let day = this.state.day
-    let singlePart = day.filter(e => e.time === time)[0]
+  const addNewFood = (food, time) => {
+    let updatedDay = meals
+    let singlePart = updatedDay.filter(e => e.time === time)[0]
     if(!singlePart) {
       singlePart = { time, foods: [] }
-      day.push(singlePart)
+      updatedDay.push(singlePart)
     }
     singlePart.foods.push(food)
-    day = this.updateAndSortDay(day, singlePart, time)
-    this.setState({ day })
+    updatedDay = updateAndSortDay(updatedDay, singlePart, time)
+    setMeals(updatedDay)
   }
 
-  updateAndSortDay = (day, newPart, time) => (
-    day.map( e => {
+  const updateAndSortDay = (updatedDay, newPart, time) => (
+    updatedDay.map( e => {
       if (e.time !== time) {
         return e
       }
       return newPart
-    }).sort((a, b) => a.time.localeCompare(b.time))
-  )
+    }).sort((a, b) => order[a.time] - order[b.time])
 
-  discardDay = () => this.setState({ day: [] })
+    )
 
-  render() {
-    return <div className='main new-day'>
-      <AddNewFood
-        addNewFood={this.addNewFood}
-        discardDay={this.discardDay}
-      />
-      <DisplayDay day={this.state.day} removeFood={this.removeFood} />
-    </div>
-  }
+    const handleFoodSubmit = e => {
+      e.preventDefault()
+      const msg = validate()
+      if (msg) {
+        return alert(alertMsg(msg))
+      }
+
+      const data = { day: { day_foods: meals, name, user_id: props.userId } }
+
+      sendRequest(data)
+    }
+
+    const alertMsg = msgs => (
+      `There were some errors: \n -${msgs.join(' \n -')}`
+    )
+
+    const validate = () => {
+      const msg = []
+      if(name.length < 3) {
+        msg.push('Name needs to be longer than 3 characters')
+      }
+      if(meals.length === 0) {
+        msg.push('Day can not be empty')
+      }
+      return msg.length > 0 ? msg : false
+    }
+
+    const sendRequest = data => {
+      fetch('api/v1/days', {
+        method: 'POST',
+        headers:  {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+          mode: 'cors',
+          body: JSON.stringify(data)
+        })
+        .then(props.history.push(`/users/${props.userId}`))
+        .catch(err => alert(err))
+    }
+
+  const discardDay = () => setMeals([])
+
+  const handleNameChange = e => setName(e.target.value)
+
+  return <div className='main new-day' style={style}>
+    <AddNewFood
+      addNewFood={addNewFood}
+      discardDay={discardDay}
+      name={name}
+      handleNameChange={handleNameChange}
+      handleFoodSubmit={handleFoodSubmit}
+    />
+    <DisplayDay day={meals} removeFood={removeFood} />
+  </div>
 }
 
 export default Day

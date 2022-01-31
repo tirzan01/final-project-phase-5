@@ -3,61 +3,61 @@ import SelectFood from "./selectFood"
 import SelectName from "./selectName"
 import SelectTime from "./selectTime"
 import SelectQty from "./selectQty"
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 
-class AddNewFood extends React.Component {
-  constructor() {
-    super()
+const AddNewFood = (props) => {
+  const [time, setTime] = React.useState('')
+  const [foodName, setFoodName] = React.useState(null)
+  const [foodId, setFoodId] = React.useState(null)
+  const [qty, setQty] = React.useState('')
+  const [value, setValue] = React.useState(null)
 
-    this.state = {
-      name: '',
-      time: '',
-      foodName: '',
-      foodId: null,
-      qty: ''
-    }
-  }
-  handleSubmit = e => {
+  const sendBtnStyle = {width: 250, marginBottom: 15, marginTop: 20}
+  const discardBtnStyle = {backgroundColor: 'white', width: 250}
+  const addBtnStyle = {border: '1px solid white', marginTop: 20, width: 250, backgroundColor: 'black', color: 'white'}
+
+  const handleSubmit = e => {
     e.preventDefault()
     const newFood = {
-      foodName: this.state.foodName,
-      foodId: this.state.foodId,
-      qty: this.state.qty
+      foodName: foodName,
+      foodId: foodId,
+      qty: qty
     }
-    this.props.addNewFood(newFood, this.state.time)
-    this.setState({
-      time: '',
-      foodName: '',
-      foodId: null,
-      qty: ''
-    })
+    props.addNewFood(newFood, time)
+    setTime('')
+    setFoodName(null)
+    setQty('')
+    setValue('')
   }
 
-  handleClick = (foodName, foodId) => {
-    this.setState({foodName, foodId})
+  const handleSelect = (food) => {
+    setFoodId(food.id)
+    setFoodName(food.label)
+    setValue(food.label)
   }
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  render() {
-    return <div id='add-new-food'>
-      <h1>Add new food</h1>
-      <div className='new-food-input'>
-        <form onSubmit={this.handleSubmit} autoComplete="off">
-          <SelectName handleChange={this.handleChange} name={this.state.name} /><br/>
-          <SelectTime handleChange={this.handleChange} time={this.state.time} /><br/>
-          <SelectFood handleChange={this.handleChange} food={this.state.foodName} handleClick={this.handleClick} /><br/>
-          <SelectQty handleChange={this.handleChange} qty={this.state.qty} /><br/>
-          <input type="submit" value='Add new food' id='add-new-food-btn' />
-        </form>
-        <button className='new-day-btn create'>Create New Day</button>
-        <button className='new-day-btn discard' onClick={this.props.discardDay}>
-          Discard Day
-          </button>
-      </div>
+  return <div id='add-new-food'>
+    <h1>Add new food</h1>
+    <div className='new-food-input'>
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <SelectName handleChange={props.handleNameChange} name={props.name} /><br/>
+        <SelectTime handleChange={(value) => setTime(value)} time={time} /><br/>
+        <SelectFood handleChange={(value) => setFoodName(value)} food={foodName} handleSelect={handleSelect} value={value}/><br/>
+        <SelectQty handleChange={(value) => setQty(value)} qty={qty} /><br/>
+        <Button type="submit" style={addBtnStyle}>
+          + Add new food
+        </Button>
+      </form>
+      <Button variant="contained" onClick={props.handleFoodSubmit} endIcon={<SendIcon />} style={sendBtnStyle}>
+        Create New Day
+      </Button>
+      <Button variant="outlined" onClick={props.discardDay} endIcon={<DeleteIcon />} style={discardBtnStyle}>
+        Discard Day
+      </Button>
     </div>
-  }
+  </div>
 }
 
 export default AddNewFood

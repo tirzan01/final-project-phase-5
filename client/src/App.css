@@ -1,6 +1,5 @@
 
 * {
-  background-color: #2eb82e;
   margin: 0px
 }
 
@@ -13,6 +12,7 @@
   padding-right: 30px;
   position: fixed;
   width: 98%;
+  z-index: 1;
 }
 
 #logo {
@@ -31,6 +31,7 @@
 .main {
   padding: 20px;
   padding-top: 80px;
+  min-height: 790px;
 }
 
 .profileImg {
@@ -47,6 +48,7 @@
 
 .user-infos {
   margin-top: 20px;
+  margin-bottom: 20px;
   width: 650px;
   height: fit-content;
 }
@@ -369,7 +371,7 @@ color: white;
 
 .input-form {
   background-color: white;
-  width: 25%;
+  width: 22%;
   height: 20px;
   font-size: 20px;
   border: 2px solid black;
@@ -402,4 +404,39 @@ color: white;
   margin-right: 30px;
   background-color: white;
   font-weight: bold;
+}
+
+.input-form.bio {
+  height: 70px;
+}
+
+#sign-up-submit-btn {
+  color: white;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 4px;
+  opacity: 0.85;
+  font-size: 17px;
+  line-height: 20px;
+  background-color: black;
+  color: white;
+}
+
+#sign-up-form {
+  width: 900px;
+}
+
+.set-day {
+  display: flex;
+}
+
+a:link, a:visited {
+  color: rgb(61, 152, 236);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

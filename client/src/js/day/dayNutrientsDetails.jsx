@@ -12,17 +12,18 @@ const DayNutrientsDetails = ({ ids }) => {
 
   const calculateSingleNutrient = async () => {
     let newNutrients = { cal: 0,fib: 0,sug: 0,prt: 0,fat: 0,crb: 0 }
+
       for (const id in ids) {
-      const resp = await fetch(`foods/${id}`)
+      const resp = await fetch(`http://localhost:4000/api/v1/foods/${id}`)
       const food = await resp.json()
         newNutrients = {
           //ids is an object with food id as a key and amount in grams as a value(e.g. 2: 200)
           cal: handleCalculations(food.calories, parseFloat(newNutrients.cal), ids[id]),
-          fib: handleCalculations(food.fibre, parseFloat(newNutrients.fib), ids[id]),
-          sug: handleCalculations(food.sugar, parseFloat(newNutrients.sug), ids[id]),
+          fib: handleCalculations(food.fibres, parseFloat(newNutrients.fib), ids[id]),
+          sug: handleCalculations(food.sugars, parseFloat(newNutrients.sug), ids[id]),
           prt: handleCalculations(food.proteins, parseFloat(newNutrients.prt), ids[id]),
           fat: handleCalculations(food.fats, parseFloat(newNutrients.fat), ids[id]),
-          crb: handleCalculations(food.carbohydrates, parseFloat(newNutrients.crb), ids[id]),
+          crb: handleCalculations(food.carbs, parseFloat(newNutrients.crb), ids[id]),
         }
       }
       setNutrients(newNutrients)
@@ -34,14 +35,15 @@ const DayNutrientsDetails = ({ ids }) => {
 
   React.useEffect(calculateSingleNutrient, [ids])
 
-  return <div id='new-day-nutriens-details'>
-    <span className='new-day-nutrient-single-detail left'>Calories: {nutrients.cal} cal</span>
-    <span className='new-day-nutrient-single-detail right'>Fibres: {nutrients.fib} g</span><br/>
-    <span className='new-day-nutrient-single-detail left'>Sugars: {nutrients.sug} g</span>
-    <span className='new-day-nutrient-single-detail right'>Proteins: {nutrients.prt} g</span><br/>
-    <span className='new-day-nutrient-single-detail left'>Fats: {nutrients.fat} g</span>
-    <span className='new-day-nutrient-single-detail right'>Carbohydrates: {nutrients.crb} g</span><br/>
-  </div>
+  return <caption>
+    {
+      ids
+      ?
+      `Calories: ${nutrients.cal} cal | Proteins: ${nutrients.prt} g | Fats: ${nutrients.fat} g | Carbs: ${nutrients.crb} g`
+      :
+      'No day selected'
+    }
+  </caption>
 }
 
 export default DayNutrientsDetails

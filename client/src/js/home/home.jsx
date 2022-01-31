@@ -4,16 +4,28 @@ import Description from "./description"
 import Login from "./login"
 
 const Home = (props) => {
-  return <div id="home" className='main'>
+  const [selectedDay, setSelectedDay] = React.useState('today')
+
+  const changeSelectedDay = day => {
+    setSelectedDay(day)
+  }
+
+  return <div id="home" className='main' style={style}>
     {
-      props.user
+      props.userId
       ?
-      <DailyPlan />
+      <DailyPlan {...props} day={selectedDay} changeSelectedDay={changeSelectedDay} />
       :
-      <Login {...props}/>
+      <Login {...props} login={props.login}/>
     }
-    <Description />
   </div>
+}
+
+const style = {
+  backgroundImage:'url(./images/login.jpg)',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'contain',
+  backgroundAttachment: 'fixed'
 }
 
 export default Home
