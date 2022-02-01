@@ -16,9 +16,11 @@ class Api::V1::FoodsController < ApplicationController
   # POST /foods
   def create
     @food = Food.new(food_params)
-
+     p '>>>>>>>>>>>>>>>>>>>>>>>>'
+     
+     p @food
     if @food.save
-      render json: @food, status: :created, location: @food
+      render json: @food, status: :created
     else
       render json: @food.errors, status: :unprocessable_entity
     end

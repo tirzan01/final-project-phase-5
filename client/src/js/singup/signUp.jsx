@@ -16,6 +16,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
+import Popover from '@mui/material/Popover';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
 
 const theme = createTheme();
 
@@ -26,15 +30,37 @@ const style = {
   backgroundAttachment: 'fixed'
 }
 
+const img = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const bg = [1, 2, 3, 4, 5, 6, 7]
+
 const SignUp = (props) => {
   const [dob, setDob] = React.useState('')
   const [charLeft, setCharLeft] = React.useState(50)
+  const [anchorProfile, setAnchorProfile] = React.useState(null);
+  const [anchorBg, setAnchorBg] = React.useState(null);
+  const [profileImg, setProfileImg] = React.useState(1)
+  const [bgImg, setBgImg] = React.useState(1)
+
+  const handleClickProfile = (event) => {
+    setAnchorProfile(event.currentTarget);
+  };
+
+  const handleClickBg = (event) => {
+    setAnchorBg(event.currentTarget);
+  };
+
+  const handleCloseProfile = () => {
+    setAnchorProfile(null);
+  };
+
+  const handleCloseBg = () => {
+    setAnchorBg(null);
+  };
 
   const handleSubmit =  e => {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget);
-    formData.append('dob', dob)
 
     const data = createData(formData)
 
@@ -46,6 +72,11 @@ const SignUp = (props) => {
 
     sendRequest(data)
   }
+
+  const openProfile = Boolean(anchorProfile);
+  const idProfile = openProfile ? 'simple-popover' : undefined;
+  const openBg = Boolean(anchorBg);
+  const idBg = openBg ? 'simple-popover' : undefined;
 
   const alertMsg = msgs => (
     `There were some errors during your sign up \n -${msgs.join(' \n -')}`
@@ -84,7 +115,6 @@ const SignUp = (props) => {
     })
       .then(resp => resp.json())
       .then(user => {
-        console.log(user)
         fetch('api/v1/login', {
           method: 'POST',
           headers:  {
@@ -112,13 +142,13 @@ const SignUp = (props) => {
       password: data.get('password'),
       password_confirmation: data.get('confirm-password'),
       sex: data.get('sex'),
-      dob: data.get('dob'),
+      dob: dob,
       height: data.get('height'),
       curr_weight: data.get('current-weight'),
       goal_weight: data.get('goal-weight'),
       bio: data.get('bio'),
-      profile_img: 1,
-      bg_img: 1
+      profile_img: profileImg,
+      bg_img: bgImg
     }
   )
 
@@ -143,6 +173,88 @@ const SignUp = (props) => {
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
+              <Grid item xs={12}>
+              <Avatar 
+                src={`./images/avatar${profileImg}.jpg`}
+                sx={{ width: 150, height: 150, marginBottom: 2 }}
+              />
+              <Button fullWidth aria-describedby={idProfile} variant="contained" onClick={handleClickProfile}>
+                Change Avatar
+              </Button>
+              <Popover
+                id={idProfile}
+                open={openProfile}
+                anchorEl={anchorProfile}
+                onClose={handleCloseProfile}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+              >
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={2}
+                  style={{
+                    overflowX: 'scroll',
+                    padding: 10
+                  }}
+                >
+                  {
+                    img.map(n => {
+                      return <Paper style={{ padding: 5 }} key={n}>
+                          <Avatar
+                            src={`./images/avatar${n}.jpg`}
+                            sx={{ width: 150, height: 150 }}
+                            onClick={() => setProfileImg(n)}
+                          />
+                        </Paper>
+                    })
+                  }
+                  </Stack>
+                </Popover>
+              </Grid>
+              <Grid item xs={12}>
+                <Avatar 
+                  src={`./images/background${bgImg}.jpg`}
+                  sx={{ width: 150, height: 150, marginBottom: 2, borderRadius: 3 }}
+                />
+                <Button fullWidth aria-describedby={idBg} variant="contained" onClick={handleClickBg}>
+                  Change background image
+                </Button>
+                <Popover
+                  id={idBg}
+                  open={openBg}
+                  anchorEl={anchorBg}
+                  onClose={handleCloseBg}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                >
+                  <Stack
+                    direction="row"
+                    divider={<Divider orientation="vertical" flexItem />}
+                    spacing={2}
+                    style={{
+                      overflowX: 'scroll',
+                      padding: 10
+                    }}
+                  >
+                  {
+                    bg.map(n => {
+                      return <Paper style={{ padding: 5 }} key={n}>
+                        <Avatar
+                          src={`./images/background${n}.jpg`}
+                          sx={{ width: 150, height: 150, borderRadius: 3 }}
+                          onClick={() => setBgImg(n)}
+                        />
+                      </Paper>
+                    })
+                  }
+                  </Stack>
+                </Popover>
+              </Grid>
                 <Grid item xs={12}>
                   <TextField
                     required

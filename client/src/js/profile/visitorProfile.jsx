@@ -18,9 +18,11 @@ const VisitorProfile = ({ user, followed, followInfo, daysCount }) => {
   return <div>
     <div className='profile-header' style={{ textTransform: "capitalize" }}>
       <div style={{ marginRight: '150px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Avatar sx={{ bgcolor: red[500], width: 150, height: 150, fontSize: '100px', marginTop: '30px' }} aria-label="recipe">
-          {user.user_name.split('')[0]}
-        </Avatar>
+        <Avatar
+          alt={user.user_name}
+          src={`/images/avatar${user.profile_img}.jpg`}
+          sx={{ width: 150, height: 150 }}
+        />
         <Item style={{ marginTop: 10 }}>
           <h1>{user.user_name}</h1>
           <p>{user.first_name} {user.last_name}</p>

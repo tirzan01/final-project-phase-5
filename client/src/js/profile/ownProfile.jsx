@@ -26,13 +26,13 @@ const OwnProfile = (props) => {
       <div style={{ marginRight: '150px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Avatar
           alt={props.user.user_name}
-          // src={`/images/avatar${props.user.profile_img}.jpg`}
+          src={`/images/avatar${props.user.profile_img}.jpg`}
           sx={{ width: 150, height: 150 }}
         />
-    <Item style={{ marginTop: 10 }}>
-        <h1>{props.user.user_name}</h1>
-        <p>{props.user.first_name} {props.user.last_name}</p>
-    </Item>
+        <Item style={{ marginTop: 10 }}>
+          <h1>{props.user.user_name}</h1>
+          <p>{props.user.first_name} {props.user.last_name}</p>
+        </Item>
       </div>
       <UserInfos user={props.user} followInfo={props.followInfo} followed={null} daysCount={props.daysCount} />
     </div>

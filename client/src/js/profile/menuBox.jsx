@@ -26,9 +26,10 @@ const MenuBox = (props) => {
             Menu
           </Button>
           <Menu {...bindMenu(popupState)}>
-            <MenuItem onClick={() => nextPath('/info')}> EditProfile</MenuItem>
+            <MenuItem onClick={() => nextPath('/edit-profile')}> Edit Profile</MenuItem>
             <MenuItem onClick={() => nextPath('/day')}>New day</MenuItem>
             <MenuItem onClick={() => nextPath('/set-day')}>Set day</MenuItem>
+            {/* <MenuItem onClick={() => nextPath('/edit-weight')}>Edit Weight</MenuItem> */}
             <MenuItem onClick={handleLogout}>Log out</MenuItem>
           </Menu>
         </React.Fragment>
@@ -38,9 +39,3 @@ const MenuBox = (props) => {
 }
 
 export default MenuBox
-
-// export default function MenuPopupState() {
-//   return (
-    
-//   );
-// }

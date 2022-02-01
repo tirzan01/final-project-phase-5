@@ -3,21 +3,20 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormLabel from '@mui/material/FormLabel';
-import InputAdornment from '@mui/material/InputAdornment';
 import Chip from '@mui/material/Chip';
+import Popover from '@mui/material/Popover';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
 
 const theme = createTheme();
+
+const img = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const bg = [1, 2, 3, 4, 5, 6, 7]
 
 const style = {
   backgroundImage: 'url(../images/signup.jpg)',
@@ -30,11 +29,40 @@ const EditProfile = (props) => {
   const [charLeft, setCharLeft] = React.useState(50)
   const [editPassword, setEditPassword] = React.useState(false)
   const [user, setUser] = React.useState(null)
+  const [anchorProfile, setAnchorProfile] = React.useState(null);
+  const [anchorBg, setAnchorBg] = React.useState(null);
+  const [profileImg, setProfileImg] = React.useState(null)
+  const [bgImg, setBgImg] = React.useState(null)
+
+  const handleClickProfile = (event) => {
+    setAnchorProfile(event.currentTarget);
+  };
+
+  const handleClickBg = (event) => {
+    setAnchorBg(event.currentTarget);
+  };
+
+  const handleCloseProfile = () => {
+    setAnchorProfile(null);
+  };
+
+  const handleCloseBg = () => {
+    setAnchorBg(null);
+  };
+
+  const openProfile = Boolean(anchorProfile);
+  const idProfile = openProfile ? 'simple-popover' : undefined;
+  const openBg = Boolean(anchorBg);
+  const idBg = openBg ? 'simple-popover' : undefined;
 
   React.useEffect(() => {
     fetch(`api/v1/users/${props.userId}`)
       .then(resp => resp.json())
-      .then(user => setUser(user.user))
+      .then(user => {
+        setUser(user.user)
+        setProfileImg(user.user.profile_img)
+        setBgImg(user.user.bg_img)
+      })
   }, [])
 
   const handleSubmit =  e => {
@@ -59,8 +87,14 @@ const EditProfile = (props) => {
 
   const isInvalid = (data) => {
     const msg = []
-    if(data.password !== data.password_confirmation) {
-      msg.push('Passwords do not match')
+    if (editPassword) {
+      if(data.password !== data.password_confirmation) {
+        msg.push('Passwords do not match')
+      }
+      console.log(data.password)
+      if (data.password) {
+        msg.push('Passwords results blank... if you do not desire to change password ensure to press cancel to remove the change password option')
+      }
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
       msg.push('Email is invalid')
@@ -69,8 +103,8 @@ const EditProfile = (props) => {
   }
 
   const sendRequest = (data) => {
-    fetch('api/v1/users', {
-      method: 'POST',
+    fetch(`api/v1/users/${props.userId}`, {
+      method: 'PATCH',
       headers:  {
         "Content-Type": "application/json",
         "Accept": "application/json"
@@ -79,24 +113,26 @@ const EditProfile = (props) => {
       body: JSON.stringify({user: data})
     })
       .then(resp => resp.json())
-      .then(user => {})
+      .then(user => props.history.push(`/users/${props.userId}`))
       .catch(err => alert(err))
   }
 
-  const createData = (data) => (
-    {
+  const createData = (data) => {
+    let newData = {
       user_name: data.get('username'),
       email: data.get('email'),
-      password: data.get('password'),
-      password_confirmation: data.get('confirm-password'),
       bio: data.get('bio'),
-      profile_img: 1,
-      bg_img: 1
+      profile_img: profileImg,
+      bg_img: bgImg,
     }
-  )
+    if (editPassword) {
+      newData['password'] = data.get('password')
+      newData['password_confirmation'] = data.get('confirm-password')
+    }
+    return newData
+  }
 
   return <div style={style}>
-    {console.log(user)}
     {
       user
       ?
@@ -113,6 +149,88 @@ const EditProfile = (props) => {
         >
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Avatar 
+                src={`./images/avatar${profileImg}.jpg`}
+                sx={{ width: 150, height: 150, marginBottom: 2 }}
+              />
+              <Button fullWidth aria-describedby={idProfile} variant="contained" onClick={handleClickProfile}>
+                Change Avatar
+              </Button>
+              <Popover
+                id={idProfile}
+                open={openProfile}
+                anchorEl={anchorProfile}
+                onClose={handleCloseProfile}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+              >
+                <Stack
+                  direction="row"
+                  divider={<Divider orientation="vertical" flexItem />}
+                  spacing={2}
+                  style={{
+                    overflowX: 'scroll',
+                    padding: 10
+                  }}
+                >
+                  {
+                    img.map(n => {
+                      return <Paper style={{ padding: 5 }} key={n}>
+                          <Avatar
+                            src={`./images/avatar${n}.jpg`}
+                            sx={{ width: 150, height: 150 }}
+                            onClick={() => setProfileImg(n)}
+                          />
+                        </Paper>
+                    })
+                  }
+                  </Stack>
+                </Popover>
+              </Grid>
+              <Grid item xs={12}>
+                <Avatar 
+                  src={`./images/background${bgImg}.jpg`}
+                  sx={{ width: 150, height: 150, marginBottom: 2, borderRadius: 3 }}
+                />
+                <Button fullWidth aria-describedby={idBg} variant="contained" onClick={handleClickBg}>
+                  Change background image
+                </Button>
+                <Popover
+                  id={idBg}
+                  open={openBg}
+                  anchorEl={anchorBg}
+                  onClose={handleCloseBg}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                >
+                  <Stack
+                    direction="row"
+                    divider={<Divider orientation="vertical" flexItem />}
+                    spacing={2}
+                    style={{
+                      overflowX: 'scroll',
+                      padding: 10
+                    }}
+                  >
+                  {
+                    bg.map(n => {
+                      return <Paper style={{ padding: 5 }} key={n}>
+                        <Avatar
+                          src={`./images/background${n}.jpg`}
+                          sx={{ width: 150, height: 150, borderRadius: 3 }}
+                          onClick={() => setBgImg(n)}
+                        />
+                      </Paper>
+                    })
+                  }
+                  </Stack>
+                </Popover>
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   fullWidth
@@ -189,15 +307,8 @@ const EditProfile = (props) => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Edit Profile
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>

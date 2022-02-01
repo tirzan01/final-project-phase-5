@@ -15,7 +15,7 @@ const activeStyle = {}
 const NavBar = ({ userId }) => (
   <div id='nav-bar'>
     <NavLink to='/' exact style={style} activeStyle={activeStyle}>Home</NavLink>
-    <NavLink to='/about' exact style={style} activeStyle={activeStyle}>About</NavLink>
+    {/* <NavLink to='/about' exact style={style} activeStyle={activeStyle}>About</NavLink> */}
     <NavLink to='/explore' exact style={style} activeStyle={activeStyle}>Explore🔥</NavLink>
     {
       userId

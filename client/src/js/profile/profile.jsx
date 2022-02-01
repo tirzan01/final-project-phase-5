@@ -3,25 +3,22 @@ import CircularProgress from '@mui/material/CircularProgress';
 import OwnProfile from "./ownProfile"
 import VisitorProfile from "./visitorProfile"
 
-const style = {
-  backgroundImage: 'url(../images/background2.jpg)',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-  backgroundAttachment: 'fixed'
-}
 
 const Profile = (props) => {
   const [user, setUser] = React.useState(null)
+
+  const style = {
+    backgroundImage: user ? `url(../images/background${user.user.bg_img}.jpg)` : null,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed'
+  }
 
   React.useEffect(() => {
     fetch(`http://localhost:4000/api/v1/users/${props.match.params.id}`)
       .then(resp => resp.json())
       .then(user => setUser(user))
   }, [])
-
-  const userBgImg = () => {
-    // return user ? `url(../images/background${user.user.bg_img}.jpg)` : null
-  }
 
   return <div className="main" style={{ ...style }}>
     {
